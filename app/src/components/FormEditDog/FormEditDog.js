@@ -129,7 +129,7 @@ FormEditDog.propTypes = {
   dog: PropTypes.object,
   editable: PropTypes.bool,
   onRemove: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired
+  onEdit: PropTypes.func
 };
 
 export default FormEditDog;
