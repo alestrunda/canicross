@@ -24,7 +24,7 @@ const users = (state = initState, action) => {
       newState[action.userID].dogIDs.push(action.dogID);
       return newState;
     case "USER_REGISTER":
-      newState = JSON.parse(JSON.stringify(state)); //deep copy
+      newState = {...state};
       newState[action.user.id] = action.user;
       return newState;
     case "USERS_LOAD":

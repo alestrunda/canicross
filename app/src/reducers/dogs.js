@@ -12,32 +12,32 @@ const dogs = (state = initState, action) => {
   let newState;
   switch (action.type) {
     case "DOG_ADD":
-      newState = JSON.parse(JSON.stringify(state)); //deep clone
+      newState = { ...state };
       newState[action.dog.id] = {
         ...action.dog,
         schedule: []
       };
       return newState;
     case "DOG_EDIT":
-      newState = JSON.parse(JSON.stringify(state)); //deep clone
+      newState = { ...state };
       newState[action.dog.id] = {
         ...newState[action.dog.id],
         ...action.dog
       };
       return newState;
     case "DOG_REMOVE":
-      newState = JSON.parse(JSON.stringify(state)); //deep clone
+      newState = { ...state };
       delete newState[action.dogID];
       return newState;
     case "DOG_SCHEDULE_ADD":
-      newState = JSON.parse(JSON.stringify(state)); //deep clone
+      newState = JSON.parse(JSON.stringify(state)); //deep copy
       newState[action.dogID].schedule.push(action.record);
       newState[action.dogID].schedule.sort((a, b) => {
         return a.from - b.from;
       });
       return newState;
     case "DOG_SCHEDULE_REMOVE":
-      newState = JSON.parse(JSON.stringify(state)); //deep clone
+      newState = JSON.parse(JSON.stringify(state)); //deep copy
       newState[action.dogID].schedule = newState[action.dogID].schedule.filter(
         record =>
           !(
