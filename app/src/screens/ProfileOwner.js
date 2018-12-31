@@ -13,7 +13,8 @@ import {
   dogEdit,
   dogRemove,
   dogScheduleAdd,
-  dogScheduleRemove
+  dogScheduleRemove,
+  userAddDog
 } from "../actions";
 import uuid from "uuid/v4";
 import api from "../api";
@@ -31,7 +32,7 @@ class ProfileOwner extends React.Component {
     const dog = {
       id: uuid()
     };
-    this.props.onAddDog(this.props.currentUser.id, dog);
+    this.props.onAddDog(dog);
     api.createDog(dog).catch(e => {
       console.log(e);
     });
@@ -39,8 +40,9 @@ class ProfileOwner extends React.Component {
   };
 
   addDogToUser(userID, dogID) {
-    const targetUser = this.props.users[userID];
-    targetUser.dogIDs.push(dogID);
+    const targetUser = { ...this.props.users[userID] };
+    targetUser.dogIDs = [...targetUser.dogIDs, dogID];
+    this.props.onUserAddDog(userID, dogID);
     api.editUser(targetUser).catch(e => {
       console.log(e);
     });
@@ -73,7 +75,7 @@ class ProfileOwner extends React.Component {
     const dogToEdit = {
       ...dog,
       schedule: this.props.dogs[dog.id].schedule
-    }
+    };
     this.props.onEditDog(dogToEdit);
     api.editDog(dogToEdit).catch(e => {
       console.log(e);
@@ -190,16 +192,18 @@ ProfileOwner.propTypes = {
   onAddDog: PropTypes.func.isRequired,
   onDogScheduleAdd: PropTypes.func.isRequired,
   onRemoveDog: PropTypes.func.isRequired,
-  onDogScheduleRemove: PropTypes.func.isRequired
+  onDogScheduleRemove: PropTypes.func.isRequired,
+  onUserAddDog: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
-  onAddDog: (userID, dog) => dispatch(dogAdd(userID, dog)),
+  onAddDog: dog => dispatch(dogAdd(dog)),
   onEditDog: dog => dispatch(dogEdit(dog)),
   onRemoveDog: (dogID, userID) => dispatch(dogRemove(dogID, userID)),
   onDogScheduleRemove: (dogID, record) =>
     dispatch(dogScheduleRemove(dogID, record)),
-  onDogScheduleAdd: (dogID, record) => dispatch(dogScheduleAdd(dogID, record))
+  onDogScheduleAdd: (dogID, record) => dispatch(dogScheduleAdd(dogID, record)),
+  onUserAddDog: (dogID, userID) => dispatch(userAddDog(userID, dogID))
 });
 
 const mapStateToProps = state => {

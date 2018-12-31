@@ -1,7 +1,6 @@
-export const dogAdd = (userID, dog) => ({
+export const dogAdd = dog => ({
   type: "DOG_ADD",
-  dog,
-  userID
+  dog
 });
 
 export const dogEdit = dog => ({
@@ -30,6 +29,12 @@ export const dogScheduleRemove = (dogID, record) => ({
 export const dogsLoad = dogs => ({
   type: "DOGS_LOAD",
   dogs
+});
+
+export const userAddDog = (userID, dogID) => ({
+  type: "USER_ADD_DOG",
+  userID,
+  dogID
 });
 
 export const userLogIn = userID => ({

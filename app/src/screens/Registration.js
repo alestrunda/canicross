@@ -78,21 +78,21 @@ class Registration extends React.Component {
       email,
       password,
       userType,
-      dogIDs: [] //init only with empty array, will be filled with onAddDog
+      dogIDs: []
     };
+
+    //add user's dogs
+    dogs.forEach(dog => {
+      this.props.onAddDog(dog);
+      api.createDog(dog).catch(e => {
+        console.log(e);
+      });
+      newUser.dogIDs.push(dog.id);
+    });
 
     this.props.onUserRegister(newUser);
     api.createUser(newUser).catch(e => {
       console.log(e);
-    });
-
-    //add user's dogs
-    //dog is linked to it's owner, so make sure to add dog after user registration
-    dogs.forEach(dog => {
-      this.props.onAddDog(userID, dog);
-      api.createDog(dog).catch(e => {
-        console.log(e);
-      });
     });
 
     this.redirectTo("/");
@@ -243,7 +243,7 @@ Registration.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  onAddDog: (userID, dog) => dispatch(dogAdd(userID, dog)),
+  onAddDog: dog => dispatch(dogAdd(dog)),
   onUserRegister: user => dispatch(userRegister(user))
 });
 
