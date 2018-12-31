@@ -1,12 +1,14 @@
 # Canicross
 
-Simple application to manage dog walking. Two type of users - dog owner and a walker (person interesting in dog walking). Dog owner specifies when his dog is available and walkers may register for that time
+*Sample project made as part of post-interview process*.
+
+Simple application to manage dog walking. Two type of users - dog owner and a walker (person interesting in dog walking). Dog owner specifies when his dog is available and walkers may register for that time.
 
 Made as SPA (react & redux), back-end in node.js and mongoDB.
 
 ## Connect database
 
-App can run without db, but any changes will be lost. To connect mongoDB in folder `server` create file .env with DB_URI variable. For example DB_URI = "mongodb://db_user:password@localhost/canicross"
+App can run without db, but any changes will be lost. To connect mongoDB in folder `server` create file .env with DB_URI variable. For example `DB_URI = "mongodb://db_user:password@localhost/canicross"`
 
 ## Application scripts
 
