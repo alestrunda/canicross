@@ -1,6 +1,11 @@
 # Canicross
 
-*Sample project made as part of post-interview process*.
+*Sample project made as part of post-interview process. The goal was to show programming habits, not to make flawless application. Hence I deliberately neglected some things like input fields validation, design...
+For interview purposes I used redux for managing app state, though it would make more sence for such small app to use context API.*
+
+*The application was reviewed successfully and I got an offer.*
+
+## Description
 
 Simple application to manage dog walking. Two type of users - dog owner and a walker (person interesting in dog walking). Dog owner specifies when his dog is available and walkers may register for that time.
 
