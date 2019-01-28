@@ -26,13 +26,23 @@ class Home extends React.Component {
                 </p>
               )}
             </div>
-            <img className="el-full" src={require("../front.jpg")} alt="" />
             <div className="section-content">
-              <WalkingSchedule
-                dogs={this.props.dogs}
-                schedule={this.props.walkingSchedule}
-                users={this.props.users}
-              />
+              <div className="grid grid--items-center">
+                <div className="grid__item grid__item--lg-span-6">
+                  <img
+                    className="el-full mb30"
+                    src={require("../front.jpg")}
+                    alt=""
+                  />
+                </div>
+                <div className="grid__item grid__item--lg-span-6">
+                  <WalkingSchedule
+                    dogs={this.props.dogs}
+                    schedule={this.props.walkingSchedule}
+                    users={this.props.users}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>

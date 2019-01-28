@@ -4,7 +4,7 @@ import { dateToStr, formatRecordTime } from "../../misc";
 
 const WalkingSchedule = ({ dogs, schedule, users }) => {
   const usersArray = Object.values(users);
-  if (!schedule.length) return <p>Žádná data</p>;
+  if (!schedule.length) return <p className="text-center">Žádná data</p>;
   return (
     <table className="table-simple">
       <thead>
