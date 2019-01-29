@@ -1,3 +1,5 @@
+/*global console*/
+
 import React from "react";
 import PropTypes from "prop-types";
 import PageHeader from "../components/PageHeader";
@@ -35,7 +37,8 @@ class ProfileOwner extends React.Component {
     };
     this.props.onAddDog(dog);
     api.createDog(dog).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
     this.addDogToUser(this.props.currentUser.id, dog.id);
   };
@@ -45,7 +48,8 @@ class ProfileOwner extends React.Component {
     targetUser.dogIDs = [...targetUser.dogIDs, dogID];
     this.props.onUserAddDog(userID, dogID);
     api.editUser(targetUser).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
   }
 
@@ -79,7 +83,8 @@ class ProfileOwner extends React.Component {
     };
     this.props.onEditDog(dogToEdit);
     api.editDog(dogToEdit).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
   };
 
@@ -90,7 +95,8 @@ class ProfileOwner extends React.Component {
       item => !(item.from === record.from && item.to === record.to)
     );
     api.editDog(dog).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
   };
 
@@ -99,7 +105,8 @@ class ProfileOwner extends React.Component {
     const dog = this.props.dogs[this.state.selectedDogID];
     dog.schedule.push(record);
     api.editDog(dog).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
     this.setState({
       selectedDogID: null,

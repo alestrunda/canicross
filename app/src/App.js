@@ -1,3 +1,5 @@
+/*global console*/
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -30,15 +32,24 @@ class App extends Component {
     api
       .getDogs()
       .then(({ data }) => this.props.onDogsLoad(data))
-      .catch(e => console.log(e));
+      .catch(e => {
+        //log into some database with errors
+        console.log(e); // eslint-disable-line no-console
+      });
     api
       .getUsers()
       .then(({ data }) => this.props.onUsersLoad(data))
-      .catch(e => console.log(e));
+      .catch(e => {
+        //log into some database with errors
+        console.log(e) // eslint-disable-line no-console
+      });
     api
       .getWalkingSchedule()
       .then(({ data }) => this.props.onWalkingScheduleLoad(data))
-      .catch(e => console.log(e));
+      .catch(e => {
+        //log into some database with errors
+        console.log(e) // eslint-disable-line no-console
+      });
   }
 
   static getDerivedStateFromError() {
@@ -47,7 +58,8 @@ class App extends Component {
   }
 
   componentDidCatch(error, info) {
-    console.log(error, info);
+    //log into some database with errors
+    console.log(error, info); // eslint-disable-line no-console
   }
 
   render() {

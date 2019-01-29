@@ -1,3 +1,5 @@
+/*global console*/
+
 import React from "react";
 import PropTypes from "prop-types";
 import PageHeader from "../components/PageHeader";
@@ -21,14 +23,16 @@ class ProfileWalker extends React.Component {
     };
     this.props.onWalkingScheduleRegister(newRecord);
     api.createWalkingSchedule(newRecord).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
   };
 
   handleScheduleRecordRemove = recordID => {
     this.props.onWalkingScheduleRemove(recordID);
     api.removeWalkingScheduleRecord(recordID).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
   };
 

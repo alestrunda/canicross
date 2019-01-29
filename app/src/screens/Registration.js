@@ -1,3 +1,5 @@
+/*global console*/
+
 import React from "react";
 import PropTypes from "prop-types";
 import PageHeader from "../components/PageHeader";
@@ -86,14 +88,16 @@ class Registration extends React.Component {
     dogs.forEach(dog => {
       this.props.onAddDog(dog);
       api.createDog(dog).catch(e => {
-        console.log(e);
+        //log into some database with errors
+        console.log(e); // eslint-disable-line no-console
       });
       newUser.dogIDs.push(dog.id);
     });
 
     this.props.onUserRegister(newUser);
     api.createUser(newUser).catch(e => {
-      console.log(e);
+      //log into some database with errors
+      console.log(e); // eslint-disable-line no-console
     });
 
     this.redirectTo("/");
