@@ -1,9 +1,15 @@
 const initState = {
-  currentUserID: null
+  currentUserID: null,
+  language: "en"
 };
 
 const app = (state = initState, action) => {
   switch (action.type) {
+    case "SET_LANGUAGE":
+      return {
+        ...state,
+        language: action.language
+      }
     case "USER_LOGIN":
       return {
         ...state,

@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import PageHeader from "../components/PageHeader";
 import WalkingSchedule from "../components/WalkingSchedule";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 
 class Home extends React.Component {
@@ -12,17 +13,17 @@ class Home extends React.Component {
         <div className="page-content">
           <div className="container">
             <div className="section-content text-center">
-              <h2 className="mb15">Vítejte v aplikace Canicross</h2>
+              <h2 className="mb15">
+                <FormattedMessage id="Home.title" />
+              </h2>
               {!this.props.isUserLoggedIn && (
                 <p className="mb10">
-                  Pro používání aplikace se prosím přihlašte se nebo
-                  zaregistrujte.
+                  <FormattedMessage id="Home.loginOrRegister" />
                 </p>
               )}
               {this.props.isUserLoggedIn && (
                 <p className="mb10">
-                  Ve svém profilu můžete nastavit svoje psi případně se jako
-                  běžec registrovat k venčení.
+                  <FormattedMessage id="Home.userProfileInfo" />
                 </p>
               )}
             </div>

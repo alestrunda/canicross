@@ -1,19 +1,35 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 import { dateToStr, formatRecordTime } from "../../misc";
 
 const WalkingSchedule = ({ dogs, schedule, users }) => {
   const usersArray = Object.values(users);
-  if (!schedule.length) return <p className="text-center">Žádná data</p>;
+  if (!schedule.length)
+    return (
+      <p className="text-center">
+        <FormattedMessage id="NoData" />
+      </p>
+    );
   return (
     <table className="table-simple">
       <thead>
         <tr>
-          <th>Běžec</th>
-          <th>Pes</th>
-          <th>Majitel</th>
-          <th>Datum</th>
-          <th>Čas</th>
+          <th>
+            <FormattedMessage id="Walker" />
+          </th>
+          <th>
+            <FormattedMessage id="Dog" />
+          </th>
+          <th>
+            <FormattedMessage id="DogOwner" />
+          </th>
+          <th>
+            <FormattedMessage id="Date" />
+          </th>
+          <th>
+            <FormattedMessage id="Time" />
+          </th>
         </tr>
       </thead>
       <tbody>

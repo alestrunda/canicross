@@ -10,6 +10,7 @@ import {
   TextField
 } from "@material-ui/core";
 import { DOG_BREEDS } from "../../settings";
+import { FormattedMessage, intlShape, injectIntl } from "react-intl";
 
 class FormEditDog extends React.Component {
   state = {
@@ -66,7 +67,9 @@ class FormEditDog extends React.Component {
               style={{
                 width: "100%"
               }}
-              label="Věk"
+              label={this.props.intl.formatMessage({
+                id: "Age"
+              })}
               value={this.state.age}
               onChange={this.handleAgeChange}
               margin="normal"
@@ -75,7 +78,7 @@ class FormEditDog extends React.Component {
           <div className="grid__item grid__item--md-span-4">
             <FormControl style={{ width: "100%", marginTop: 16 }}>
               <InputLabel shrink htmlFor="field-breed">
-                Rasa
+                <FormattedMessage id="Breed" />
               </InputLabel>
               <Select
                 style={{ width: "100%" }}
@@ -109,7 +112,7 @@ class FormEditDog extends React.Component {
               variant="contained"
               color="primary"
             >
-              Uložit
+              <FormattedMessage id="Save" />
             </Button>
           )}
           <Button
@@ -117,7 +120,7 @@ class FormEditDog extends React.Component {
             variant="contained"
             color="secondary"
           >
-            Smazat
+            <FormattedMessage id="Delete" />
           </Button>
         </div>
       </React.Fragment>
@@ -129,7 +132,8 @@ FormEditDog.propTypes = {
   dog: PropTypes.object,
   editable: PropTypes.bool,
   onRemove: PropTypes.func.isRequired,
-  onEdit: PropTypes.func
+  onEdit: PropTypes.func,
+  intl: intlShape.isRequired
 };
 
-export default FormEditDog;
+export default injectIntl(FormEditDog);

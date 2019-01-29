@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Button } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { normalizeInputTime } from "../../misc";
+import { FormattedMessage, intlShape, injectIntl } from "react-intl";
 
 class FormDogScheduleAdd extends React.Component {
   state = {
@@ -42,7 +43,9 @@ class FormDogScheduleAdd extends React.Component {
             style={{
               width: "100%"
             }}
-            label="Od ve formátu HH:MM"
+            label={this.props.intl.formatMessage({
+              id: "TimeFromWithFormat"
+            })}
             value={this.state.from}
             onChange={this.handleFromChange}
             margin="normal"
@@ -53,7 +56,9 @@ class FormDogScheduleAdd extends React.Component {
             style={{
               width: "100%"
             }}
-            label="Do ve formátu HH:MM"
+            label={this.props.intl.formatMessage({
+              id: "TimeToWithFormat"
+            })}
             value={this.state.to}
             onChange={this.handleToChange}
             margin="normal"
@@ -61,7 +66,7 @@ class FormDogScheduleAdd extends React.Component {
         </div>
         <div className="grid__item grid__item--md-span-4">
           <Button variant="contained" color="primary" onClick={this.handleSave}>
-            Uložit
+            <FormattedMessage id="Save" />
           </Button>
         </div>
       </div>
@@ -70,7 +75,8 @@ class FormDogScheduleAdd extends React.Component {
 }
 
 FormDogScheduleAdd.propTypes = {
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };
 
-export default FormDogScheduleAdd;
+export default injectIntl(FormDogScheduleAdd);

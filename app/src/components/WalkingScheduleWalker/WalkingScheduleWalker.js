@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
 import { formatRecordTime, getOwnerByDogID } from "../../misc";
 import { Button } from "@material-ui/core";
 
@@ -11,16 +12,29 @@ const WalkingScheduleWalker = ({
   onRemoveRecord
 }) => {
   const records = schedule.filter(record => record.walkerID === currentUserID);
-  if (!records.length) return <p>Žádná data</p>;
+  if (!records.length)
+    return (
+      <p>
+        <FormattedMessage id="NoData" />
+      </p>
+    );
 
   return (
     <table className="table-simple">
       <thead>
         <tr>
-          <th>Majitel</th>
-          <th>Pes</th>
-          <th>Datum</th>
-          <th>Čas</th>
+          <th>
+            <FormattedMessage id="DogOwner" />
+          </th>
+          <th>
+            <FormattedMessage id="Dog" />
+          </th>
+          <th>
+            <FormattedMessage id="Date" />
+          </th>
+          <th>
+            <FormattedMessage id="Time" />
+          </th>
           <th />
         </tr>
       </thead>
@@ -41,7 +55,7 @@ const WalkingScheduleWalker = ({
                   color="secondary"
                   onClick={() => onRemoveRecord(record.id)}
                 >
-                  Zrušit
+                  <FormattedMessage id="Cancel" />
                 </Button>
               </td>
             </tr>

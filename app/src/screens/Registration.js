@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PageHeader from "../components/PageHeader";
 import { Redirect } from "react-router-dom";
 import FormEditDog from "../components/FormEditDog";
+import { FormattedMessage, intlShape, injectIntl } from "react-intl";
 import {
   Button,
   FormControlLabel,
@@ -61,7 +62,7 @@ class Registration extends React.Component {
     const { name, email, password, userType } = this.state;
     if (!name || !email || !password) {
       this.setState({
-        error: "Vyplňte všechna pole"
+        error: this.props.intl.formatMessage({ id: "FillAllFields" })
       });
       return;
     }
@@ -121,10 +122,14 @@ class Registration extends React.Component {
     return (
       <React.Fragment>
         {this.state.redirect && <Redirect to={this.state.redirect} />}
-        <PageHeader>Registrace</PageHeader>
+        <PageHeader>
+          <FormattedMessage id="Registration" />
+        </PageHeader>
         <div className="page-content">
           <div className="container">
-            <h2 className="mt40">Vyplňte registrační údaje</h2>
+            <h2 className="mt40">
+              <FormattedMessage id="Registration.fillFields" />
+            </h2>
             <form onSubmit={this.handleFormSubmit}>
               <div className="section-content">
                 <div className="grid">
@@ -133,7 +138,7 @@ class Registration extends React.Component {
                       style={{
                         width: "100%"
                       }}
-                      label="Přezdívka"
+                      label={this.props.intl.formatMessage({ id: "Username" })}
                       value={this.state.name}
                       onChange={this.handleNameChange}
                       margin="normal"
@@ -144,7 +149,9 @@ class Registration extends React.Component {
                       style={{
                         width: "100%"
                       }}
-                      label="Emailová adresa"
+                      label={this.props.intl.formatMessage({
+                        id: "EmailAddress"
+                      })}
                       value={this.state.email}
                       onChange={this.handleEmailChange}
                       margin="normal"
@@ -155,7 +162,7 @@ class Registration extends React.Component {
                       style={{
                         width: "100%"
                       }}
-                      label="Heslo"
+                      label={this.props.intl.formatMessage({ id: "Password" })}
                       type="password"
                       value={this.state.password}
                       onChange={this.handlePasswordChange}
@@ -165,7 +172,9 @@ class Registration extends React.Component {
                 </div>
               </div>
               <div className="section-content">
-                <h3 className="mb15">Typ účtu</h3>
+                <h3 className="mb15">
+                  <FormattedMessage id="AccountType" />
+                </h3>
                 <RadioGroup
                   name="user-type"
                   value={this.state.userType.toString()}
@@ -174,12 +183,12 @@ class Registration extends React.Component {
                   <FormControlLabel
                     value={USER_TYPE.WALKER.toString()}
                     control={<Radio />}
-                    label="Běžec"
+                    label={this.props.intl.formatMessage({ id: "Walker" })}
                   />
                   <FormControlLabel
                     value={USER_TYPE.OWNER.toString()}
                     control={<Radio />}
-                    label="Majitel psa"
+                    label={this.props.intl.formatMessage({ id: "DogOwner" })}
                   />
                 </RadioGroup>
                 {this.state.userType === USER_TYPE.OWNER && (
@@ -201,7 +210,7 @@ class Registration extends React.Component {
                       variant="contained"
                       color="primary"
                     >
-                      Přidat psa
+                      <FormattedMessage id="AddDog" />
                     </Button>
                   </React.Fragment>
                 )}
@@ -215,7 +224,7 @@ class Registration extends React.Component {
                       variant="contained"
                       color="secondary"
                     >
-                      Zrušit
+                      <FormattedMessage id="Cancel" />
                     </Button>
                   </div>
                   <div className="grid__item grid__item--md-span-6 text-right">
@@ -224,7 +233,7 @@ class Registration extends React.Component {
                       variant="contained"
                       color="primary"
                     >
-                      Registrovat
+                      <FormattedMessage id="Register" />
                     </Button>
                   </div>
                 </div>
@@ -239,7 +248,8 @@ class Registration extends React.Component {
 
 Registration.propTypes = {
   onAddDog: PropTypes.func.isRequired,
-  onUserRegister: PropTypes.func.isRequired
+  onUserRegister: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -250,4 +260,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(Registration);
+)(injectIntl(Registration));

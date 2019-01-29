@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PageHeader from "../components/PageHeader";
 import WalkingSheduleWalker from "../components/WalkingScheduleWalker";
 import WalkingScheduleRegister from "../components/WalkingScheduleRegister";
+import { FormattedMessage } from "react-intl";
 import { walkingScheduleAdd, walkingScheduleRemove } from "../actions";
 import { connect } from "react-redux";
 import api from "../api";
@@ -38,7 +39,9 @@ class ProfileWalker extends React.Component {
         <div className="page-content">
           <div className="container">
             <div className="section-content">
-              <h2 className="heading-mid">Můj rozvrh</h2>
+              <h2 className="heading-mid">
+                <FormattedMessage id="MySchedule" />
+              </h2>
               <WalkingSheduleWalker
                 currentUserID={this.props.currentUserID}
                 dogs={this.props.dogs}
@@ -48,7 +51,9 @@ class ProfileWalker extends React.Component {
               />
             </div>
             <div className="section-content">
-              <h2 className="heading-mid">Nová registrace</h2>
+              <h2 className="heading-mid">
+                <FormattedMessage id="NewRegistration" />
+              </h2>
               <WalkingScheduleRegister
                 dogs={this.props.dogs}
                 users={this.props.users}

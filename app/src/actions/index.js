@@ -31,6 +31,11 @@ export const dogsLoad = dogs => ({
   dogs
 });
 
+export const setLanguage = language => ({
+  type: "SET_LANGUAGE",
+  language
+})
+
 export const userAddDog = (userID, dogID) => ({
   type: "USER_ADD_DOG",
   userID,

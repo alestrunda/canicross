@@ -2,10 +2,23 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import routes from "./routes";
+import { FormattedMessage } from "react-intl";
 import { dogsLoad, usersLoad, walkingScheduleLoad } from "./actions";
 import { connect } from "react-redux";
+import { addLocaleData, IntlProvider } from "react-intl";
 import api from "./api";
+import en from "react-intl/locale-data/en";
+import cs from "react-intl/locale-data/cs";
 import "./scss/main.scss";
+
+import localeCs from "./locale/cs.json";
+import localeEn from "./locale/en.json";
+
+const messages = {
+  cs: localeCs,
+  en: localeEn
+};
+addLocaleData([...en, ...cs]);
 
 class App extends Component {
   state = {
@@ -13,6 +26,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    //load data from database
     api
       .getDogs()
       .then(({ data }) => this.props.onDogsLoad(data))
@@ -38,29 +52,34 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
-        <div className="page-all">
-          {this.state.hasError && (
-            <div className="page-content">
-              <p className="text-red">
-                Nastala kritická chyba, podrobnosti v konzoli
-              </p>
-            </div>
-          )}
-          {!this.state.hasError &&
-            routes.map((item, index) => (
-              <Route
-                key={index}
-                path={item.path}
-                exact
-                component={item.component}
-              />
-            ))}
-          <footer className="page-footer">
-            <div className="container">canicross 2018</div>
-          </footer>
-        </div>
-      </Router>
+      <IntlProvider
+        locale={this.props.language}
+        messages={messages[this.props.language]}
+      >
+        <Router>
+          <div className="page-all">
+            {this.state.hasError && (
+              <div className="page-content">
+                <p className="text-red">
+                  <FormattedMessage id="App.criticalError" />
+                </p>
+              </div>
+            )}
+            {!this.state.hasError &&
+              routes.map((item, index) => (
+                <Route
+                  key={index}
+                  path={item.path}
+                  exact
+                  component={item.component}
+                />
+              ))}
+            <footer className="page-footer">
+              <div className="container">canicross 2018</div>
+            </footer>
+          </div>
+        </Router>
+      </IntlProvider>
     );
   }
 }
@@ -68,8 +87,13 @@ class App extends Component {
 App.propTypes = {
   onDogsLoad: PropTypes.func.isRequired,
   onUsersLoad: PropTypes.func.isRequired,
-  onWalkingScheduleLoad: PropTypes.func.isRequired
+  onWalkingScheduleLoad: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired
 };
+
+const mapStateToProps = state => ({
+  language: state.app.language
+});
 
 const mapDispatchToProps = dispatch => ({
   onDogsLoad: dogs => dispatch(dogsLoad(dogs)),
@@ -78,6 +102,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);

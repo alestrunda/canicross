@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button, TextField } from "@material-ui/core";
 import classNames from "classnames";
+import { FormattedMessage, intlShape, injectIntl } from "react-intl";
 import { userLogIn } from "../../actions";
 import { connect } from "react-redux";
 import api from "../../api";
@@ -47,7 +48,9 @@ class FormLogIn extends React.Component {
     const { name, password } = this.state;
     if (!name || !password) {
       this.setState({
-        error: "Vyplňte všechna pole"
+        error: this.props.intl.formatMessage({
+          id: "FillAllFields"
+        })
       });
       return;
     }
@@ -60,7 +63,9 @@ class FormLogIn extends React.Component {
       })
       .catch(() => {
         this.setState({
-          error: "Nesprávné uživatelské jméno nebo heslo"
+          error: this.props.intl.formatMessage({
+            id: "WrongUsernameOrPassword"
+          })
         });
       });
   };
@@ -77,7 +82,9 @@ class FormLogIn extends React.Component {
           style={{
             width: "100%"
           }}
-          label="Přezdívka"
+          label={this.props.intl.formatMessage({
+            id: "Username"
+          })}
           value={this.state.name}
           onChange={this.handleNameChange}
           margin="normal"
@@ -86,7 +93,9 @@ class FormLogIn extends React.Component {
           style={{
             width: "100%"
           }}
-          label="Heslo"
+          label={this.props.intl.formatMessage({
+            id: "Password"
+          })}
           type="password"
           value={this.state.password}
           onChange={this.handlePasswordChange}
@@ -101,7 +110,7 @@ class FormLogIn extends React.Component {
             variant="contained"
             color="primary"
           >
-            Přihlásit se
+            <FormattedMessage id="LogIn" />
           </Button>
         </div>
       </form>
@@ -112,7 +121,8 @@ class FormLogIn extends React.Component {
 FormLogIn.propTypes = {
   active: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
-  onUserLogIn: PropTypes.func.isRequired
+  onUserLogIn: PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -126,4 +136,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FormLogIn);
+)(injectIntl(FormLogIn));

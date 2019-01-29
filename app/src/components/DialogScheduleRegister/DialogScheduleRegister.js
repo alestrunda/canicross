@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FormattedMessage, intlShape, injectIntl } from "react-intl";
 import { Button, Dialog, TextField } from "@material-ui/core";
 import { dateToStr, isDateStr, normalizeInputTime } from "../../misc";
 
@@ -16,7 +17,7 @@ class DialogScheduleRegister extends React.Component {
     if (!isDateStr(e.target.value) || !date || !date.getTime()) {
       this.setState({
         date: e.target.value,
-        error: "Datum je v nesprávném formátu"
+        error: this.props.intl.formatMessage({ id: "WrongDateFormat" })
       });
     } else {
       this.setState({
@@ -46,7 +47,7 @@ class DialogScheduleRegister extends React.Component {
     );
     if (!matchingScheduleRecord) {
       this.setState({
-        error: "Nevyhovující rozsah"
+        error: this.props.intl.formatMessage({ id: "RangeNotCorrect" })
       });
       return;
     }
@@ -59,7 +60,7 @@ class DialogScheduleRegister extends React.Component {
       date: new Date(),
       from: "",
       to: "",
-      error: ""  
+      error: ""
     });
   }
 
@@ -71,13 +72,15 @@ class DialogScheduleRegister extends React.Component {
     return (
       <Dialog open={this.props.open} onClose={this.props.onClose}>
         <div className="container section-content">
-          <h3 className="heading-mid">Zadejte čas</h3>
+          <h3 className="heading-mid">
+            <FormattedMessage id="InsertTime" />
+          </h3>
           <TextField
             style={{
               width: "100%",
               marginBottom: 20
             }}
-            label="Datum, formát DD. MM."
+            label={this.props.intl.formatMessage({ id: "DateWithFormat" })}
             value={dateStr}
             onChange={this.handleDateChange}
             margin="normal"
@@ -88,7 +91,9 @@ class DialogScheduleRegister extends React.Component {
                 style={{
                   width: "100%"
                 }}
-                label="Od, formát HH:MM"
+                label={this.props.intl.formatMessage({
+                  id: "TimeFromWithFormat"
+                })}
                 value={this.state.from}
                 onChange={this.handleFromChange}
                 margin="normal"
@@ -99,7 +104,9 @@ class DialogScheduleRegister extends React.Component {
                 style={{
                   width: "100%"
                 }}
-                label="Do, formát HH:MM"
+                label={this.props.intl.formatMessage({
+                  id: "TimeToWithFormat"
+                })}
                 value={this.state.to}
                 onChange={this.handleToChange}
                 margin="normal"
@@ -115,7 +122,7 @@ class DialogScheduleRegister extends React.Component {
               color="primary"
               onClick={this.handleSubmit}
             >
-              Potvrdit
+              <FormattedMessage id="Confirm" />
             </Button>
           </div>
         </div>
@@ -128,7 +135,8 @@ DialogScheduleRegister.propTypes = {
   dogSchedule: PropTypes.array,
   onRegister: PropTypes.func.isRequired,
   onClose: PropTypes.func,
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  intl: intlShape.isRequired
 };
 
-export default DialogScheduleRegister;
+export default injectIntl(DialogScheduleRegister);

@@ -4,6 +4,7 @@ import PageHeader from "../components/PageHeader";
 import FormEditDog from "../components/FormEditDog";
 import FormDogSchedule from "../components/FormDogSchedule";
 import FormDogScheduleAdd from "../components/FormDogScheduleAdd";
+import { FormattedMessage } from "react-intl";
 import { Button } from "@material-ui/core";
 import { connect } from "react-redux";
 import classNames from "classnames";
@@ -114,7 +115,9 @@ class ProfileOwner extends React.Component {
         <PageHeader>Canicross</PageHeader>
         <div className="page-content">
           <div className="section-content container">
-            <h2 className="heading-mid">Můj rozvrh</h2>
+            <h2 className="heading-mid">
+              <FormattedMessage id="MySchedule" />
+            </h2>
             <WalkingScheduleOwner
               allDogs={this.props.dogs}
               ownerDogIDs={currentUser.dogIDs}
@@ -124,9 +127,13 @@ class ProfileOwner extends React.Component {
           </div>
           <div className="section-content">
             <div className="container">
-              <h2 className="heading-mid">Moji psi</h2>
+              <h2 className="heading-mid">
+                <FormattedMessage id="MyDogs" />
+              </h2>
               {currentUser.dogIDs.length === 0 && (
-                <p className="mt10 mb10">Žádná data</p>
+                <p className="mt10 mb10">
+                  <FormattedMessage id="NoData" />
+                </p>
               )}
             </div>
             {currentUser.dogIDs.map((dogID, index) => {
@@ -157,7 +164,7 @@ class ProfileOwner extends React.Component {
                       variant="contained"
                       onClick={() => this.openFormScheduleAdd(dogID)}
                     >
-                      Přidat čas
+                      <FormattedMessage id="AddTime" />
                     </Button>
                     {this.state.isFormAddTimeOpened &&
                       this.state.selectedDogID === dogID && (
@@ -174,7 +181,7 @@ class ProfileOwner extends React.Component {
               color="primary"
               onClick={this.handleAddDog}
             >
-              Přidat psa
+              <FormattedMessage id="AddDog" />
             </Button>
           </div>
         </div>

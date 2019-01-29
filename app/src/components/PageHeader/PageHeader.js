@@ -2,12 +2,22 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import FormLogIn from "../FormLogIn";
+import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
-import { userLogOut } from "../../actions";
+import { setLanguage, userLogOut } from "../../actions";
 
 class PageHeader extends React.Component {
   state = {
     isLoginOpened: false
+  };
+
+  getOtherLanguage(language) {
+    return language === "en" ? "cs" : "en";
+  }
+
+  handleLanguageChange = () => {
+    //switch to the other language
+    this.props.onSetLanguage(this.getOtherLanguage(this.props.language));
   };
 
   handleLogInClose = () => {
@@ -35,14 +45,14 @@ class PageHeader extends React.Component {
             <ul className="nav-main">
               <li>
                 <Link className="nav-main__link" to="/">
-                  Domů
+                  <FormattedMessage id="Home" />
                 </Link>
               </li>
               {!this.props.isUserLoggedIn && (
                 <React.Fragment>
                   <li>
                     <Link className="nav-main__link" to="/register">
-                      Registrace
+                      <FormattedMessage id="Registration" />
                     </Link>
                   </li>
                   <li>
@@ -50,7 +60,7 @@ class PageHeader extends React.Component {
                       className="nav-main__link"
                       onClick={this.handleLogInClick}
                     >
-                      Přihlášení
+                      <FormattedMessage id="LogIn" />
                     </button>
                   </li>
                 </React.Fragment>
@@ -59,7 +69,7 @@ class PageHeader extends React.Component {
                 <React.Fragment>
                   <li>
                     <Link className="nav-main__link" to="profile">
-                      Profil
+                      <FormattedMessage id="Profile" />
                     </Link>
                   </li>
                   <li>
@@ -67,12 +77,15 @@ class PageHeader extends React.Component {
                       className="nav-main__link"
                       onClick={this.handleLogOutClick}
                     >
-                      Odhlášení
+                      <FormattedMessage id="LogOut" />
                     </button>
                   </li>
                 </React.Fragment>
               )}
             </ul>
+            <button className="btn-langs" onClick={this.handleLanguageChange}>
+              {this.getOtherLanguage(this.props.language)}
+            </button>
           </nav>
           <FormLogIn
             active={this.state.isLoginOpened}
@@ -89,15 +102,19 @@ PageHeader.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
   ]),
+  language: PropTypes.string,
   onUserLogOut: PropTypes.func.isRequired,
+  onSetLanguage: PropTypes.func.isRequired,
   isUserLoggedIn: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
-  isUserLoggedIn: !!state.app.currentUserID
+  isUserLoggedIn: !!state.app.currentUserID,
+  language: state.app.language
 });
 
 const mapDispatchToProps = dispatch => ({
+  onSetLanguage: language => dispatch(setLanguage(language)),
   onUserLogOut: () => dispatch(userLogOut())
 });
 
