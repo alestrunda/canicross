@@ -15,7 +15,7 @@ Made as SPA (react & redux), back-end in node.js and mongoDB.
 
 App can run without db, but any changes will be lost. To connect mongoDB in folder `server` create file .env with DB_URI variable. For example `DB_URI = "mongodb://db_user:password@localhost/canicross"`
 
-## Application scripts
+## Client scripts
 
 In the project directory, you can run:
 
