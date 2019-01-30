@@ -16,13 +16,18 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //connect to db
-mongoose.connect(
-  process.env.DB_URI,
-  { useNewUrlParser: true },
-  () => {
-    console.log("Connection to database successfull");
-  }
-);
+try {
+  mongoose.connect(
+    process.env.DB_URI,
+    { useNewUrlParser: true },
+    () => {
+      console.log("Connection to database successfull");
+    }
+  );
+} catch (e) {
+  console.log("Cannot connect to database");
+  process.exit(1);
+}
 
 //get Mongoose to use the global promise library
 mongoose.Promise = global.Promise;
