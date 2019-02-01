@@ -1,7 +1,7 @@
 # Canicross
 
-*Sample project made as part of post-interview process. The goal was to show programming habits, not to make flawless application. Hence I deliberately neglected some things like input fields validation, design...
-For interview purposes I used redux for managing app state, though it would make more sence for such small app to use context API.*
+*Sample project made as part of job post-interview process. The goal was to show programming habits, not to make flawless application. Hence I deliberately neglected some things like input fields validation, design...
+For interview purposes I used redux for managing app state, though it would make more sense for such small app to use context API.*
 
 *The application was reviewed successfully and I got an offer.*
 
@@ -17,7 +17,7 @@ App can run without db, but any changes will be lost. To connect mongoDB in fold
 
 ## Client scripts
 
-In the project directory, you can run:
+In the **client** directory, you can run:
 
 ### `npm start`
 
@@ -33,6 +33,12 @@ Builds the app for production to the `build` folder.
 
 ### Server scripts
 
+In the **server** directory, you can run:
+
 ### `npm start`
+
+Starts nodeJS server.
+
+### `npm develop`
 
 Starts nodeJS server using nodemon.
