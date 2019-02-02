@@ -33,7 +33,7 @@ Launches the test runner in the interactive watch mode.
 
 Builds the app for production to the `build` folder.
 
-### Server scripts
+## Server scripts
 
 In the **server** directory, you can run:
 
