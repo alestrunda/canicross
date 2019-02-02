@@ -9,7 +9,7 @@ For interview purposes I used redux for managing app state, though it would make
 
 Simple application to manage dog walking. Two type of users - dog owner and a walker (person interesting in dog walking). Dog owner specifies when his dog is available and walkers may register for that time.
 
-Made as SPA (react & redux), back-end in node.js and mongoDB.
+Made as SPA (react & redux, sass, material-ui), back-end in node.js and mongoDB.
 
 Languages: English (default) and Czech.
 
