@@ -3,7 +3,7 @@
 *Sample project made as part of job post-interview process. The goal was to show programming habits, not to make flawless application. Hence I deliberately neglected some things like input fields validation, design...
 For interview purposes I used redux for managing app state, though it would make more sense for such small app to use context API.*
 
-*The application was reviewed successfully and I got an offer.*
+*The application was reviewed successfully and I received an offer :)*
 
 ## Description
 
